@@ -6,12 +6,14 @@ import { applyI18n, getLang, initLang, onLangChange, setLang, t } from './i18n';
 import { parseRoute, type Route } from './router';
 import { loadSettings } from './settings';
 import { TranslatePage } from './pages/translate';
+import { CollectPage } from './pages/collect';
 import { registerServiceWorker } from './pwa';
 
 const caps = detectCapabilities();
 const settings = loadSettings();
 const view = document.getElementById('view')!;
 let translate: TranslatePage | null = null;
+let collect: CollectPage | null = null;
 let route: Route | null = null;
 
 function renderPlaceholder(r: Route): void {
@@ -23,10 +25,10 @@ function renderPlaceholder(r: Route): void {
 function render(): void {
   const next = parseRoute(location.hash);
   if (next === route) return;
-  if (route === 'translate') {
-    translate?.unmount();
-    translate = null;
-  }
+  translate?.unmount();
+  translate = null;
+  collect?.unmount();
+  collect = null;
   route = next;
   document.querySelectorAll<HTMLAnchorElement>('nav a').forEach((a) => {
     if (a.dataset.route === next) a.setAttribute('aria-current', 'page');
@@ -35,6 +37,9 @@ function render(): void {
   if (next === 'translate') {
     translate = new TranslatePage(caps, settings);
     translate.mount(view);
+  } else if (next === 'collect') {
+    collect = new CollectPage(caps, settings);
+    collect.mount(view);
   } else {
     renderPlaceholder(next);
   }
@@ -54,7 +59,8 @@ onLangChange(() => {
   applyI18n();
   syncLangButton();
   translate?.relabel();
-  if (route && route !== 'translate') renderPlaceholder(route);
+  collect?.relabel();
+  if (route && route !== 'translate' && route !== 'collect') renderPlaceholder(route);
   if (route) document.title = `${t(`nav.${route}`)} · ${t('app.title')}`;
 });
 langBtn.addEventListener('click', () => setLang(getLang() === 'en' ? 'ur' : 'en'));
@@ -64,7 +70,7 @@ if (import.meta.env.PROD) registerServiceWorker();
 
 // Exposed for end-to-end tests and for reading numbers off real phones.
 (window as unknown as { __psl: unknown }).__psl = {
-  diagnostics: () => translate?.diagnostics() ?? null,
-  lastFrame: () => translate?.lastFrameSummary() ?? null,
-  rawFrames: () => translate?.recentRawFrames() ?? [],
+  diagnostics: () => (translate?.live ?? collect?.live)?.diagnostics() ?? null,
+  lastFrame: () => (translate?.live ?? collect?.live)?.lastFrameSummary() ?? null,
+  rawFrames: () => (translate?.live ?? collect?.live)?.recentRawFrames() ?? [],
 };
