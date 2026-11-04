@@ -1,0 +1,16 @@
+node_modules/
+dist/
+coverage/
+test-results/
+playwright-report/
+# downloaded at build time, never committed
+.cache/
+public/rt/
+src/generated/
+# raw datasets stay out of git
+data/raw/
+training/.venv/
+training/runs/
+__pycache__/
+*.pyc
+.DS_Store

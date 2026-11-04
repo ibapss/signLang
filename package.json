@@ -1,0 +1,43 @@
+{
+  "name": "signlang",
+  "version": "0.1.0",
+  "description": "Live Pakistan Sign Language to English and Urdu translator that runs entirely in the browser.",
+  "scripts": {
+    "fetch-models": "node scripts/fetch-models.mjs",
+    "prepare-assets": "npm run fetch-models && npm run stage-runtime",
+    "dev": "npm run prepare-assets && vite",
+    "build": "npm run prepare-assets && tsc --noEmit && vite build",
+    "serve:dist": "node scripts/serve-dist.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "e2e": "playwright test",
+    "fixture:video": "node scripts/make-fixture-video.mjs",
+    "stage-runtime": "node scripts/stage-runtime.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibapss/signLang.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ibapss/signLang/issues"
+  },
+  "homepage": "https://github.com/ibapss/signLang#readme",
+  "dependencies": {
+    "@fontsource/noto-nastaliq-urdu": "5.2.8",
+    "@mediapipe/tasks-vision": "1.1.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "22.19.1",
+    "typescript": "5.9.3",
+    "vite": "8.3.4",
+    "vite-plugin-pwa": "2.0.0",
+    "vitest": "5.0.5",
+    "workbox-window": "7.4.1"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  }
+}
