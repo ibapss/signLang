@@ -11,8 +11,8 @@ Last updated: 2026-11-04. Milestones 1–2 merged to `main` ([PR 1](https://gith
 |---|---|---|
 | 1 | Inspect datasets, `docs/DATASETS.md`, first vocabulary | **Done, partly blocked:** only the PSL dictionary is reachable; Hugging Face, Mendeley and Kaggle are blocked by the network policy |
 | 2 | Camera, landmark overlay, diagnostics, Pages deployment | **Deployed** to https://ibapss.github.io/signLang/. First real phone tested (below). **Speed on low-end phones is the open problem.** |
-| 3 | Feature spec, parity tests, training, first model, evaluation | Not started. **Blocked on training data** (needs the Hugging Face dataset at minimum) |
-| 4 | Recognition, translation, full UI, Collect and Test pages | Not started |
+| 3 | Feature spec, parity tests, training, first model, evaluation | **Infrastructure done:** `docs/FEATURES.md` (psl-f1), Python/TS parity in CI, `training/` pipeline (tested on synthetic data only). **No model yet: no real training data** (public datasets blocked; waiting for Collect recordings) |
+| 4 | Recognition, translation, full UI, Collect and Test pages | **Collect page done early** (only unblocked data source); `src/data/signs.json` created. Recognition, translation and the Test page are not started |
 | 5 | Retrain with our recordings, tune, drop weak signs | Not started |
 | 6 | Offline polish, Spelling mode, Urdu polish, accessibility, README | Not started (offline already works for landmarks) |
 
@@ -49,6 +49,32 @@ Diagnostics reported by the user, Holistic pipeline, front camera, 480×640 port
 - The user confirmed that hand lines appear and that the **R/L labels are
   correct** for the anatomical hand on the front camera.
 - Pending: the same diagnostics with "Hands + Pose (lite)", the phone model, and a back-camera check.
+
+## Focus (user decision, 2026-11-04)
+
+Laptop/desktop first; phone performance later.
+
+## Milestone 3 infrastructure (2026-11-04)
+
+- `docs/FEATURES.md`: 137 features per frame, resampled by time to 32×137 over 1.6 s.
+  Hand shape is wrist-relative; hand position comes from the pose wrists (robust
+  if a dataset stores hands wrist-relative); missing hands are encoded explicitly;
+  left-handed signers are mirrored per signer.
+- Parity: `tests/golden/features-psl-f1.json` holds 8 cases from REAL landmarks
+  (browser pipeline on the fixture clip, PSL dictionary HELP) plus labelled
+  synthetic edge cases. TypeScript (Vitest) and Python (pytest) both match to
+  within 1e-5, and CI runs both.
+- `training/pipeline.py all`: prepare, train (resumable), evaluate (writes
+  `docs/EVALUATION.md`, tunes thresholds on validation), export (ONNX + sidecar,
+  checked against ONNX Runtime). Verified end to end only on SYNTHETIC
+  recordings inside `training/tests`. No real model exists yet.
+- Collect page (`#/collect`): consent, anonymous code, handedness, PSL level,
+  24 signs × N reps plus about 15% "none" prompts (rest / fidget / between),
+  3-2-1 countdown, 2.5 s takes, a hand-visibility check, and download of a
+  `psl-collect-v1` file (`training/import_collected.py`). e2e-tested with the
+  fake camera.
+- The VM uses `torch==2.14.1` from PyPI (the CUDA build, 5.5 GB venv), because
+  `download.pytorch.org` is blocked. CPU training works.
 
 ## Not verified yet
 
@@ -131,12 +157,15 @@ Diagnostics reported by the user, Holistic pipeline, front camera, 480×640 port
    options to measure: hands only with pose every Nth frame, and the
    ES-module WASM build in a worker. Recognition needs about 10 fps on
    phones like device 1.
-2. As soon as Hugging Face is reachable, run the dataset checks listed in
-   `docs/DATASETS.md` §2, then write `docs/FEATURES.md` (match the dataset's
-   normalization if it rules out the preferred format).
-3. Milestone 3: Python/TypeScript feature parity with golden vectors, `training/`
-   pipeline (prepare/train/evaluate/export, resumable, CPU-friendly), the first
-   model, and `docs/EVALUATION.md`.
+2. **Data.** Recordings from the Collect page on a laptop: at least 3 signers
+   (ideally Deaf PSL signers), 5+ reps per sign. Then
+   `training.import_collected` → `training.pipeline all` → the first real model.
+   If Hugging Face becomes reachable, run the checks in `docs/DATASETS.md` §2
+   and add a loader in `training/psl/sources.py` (check that `psl-f1` fits its
+   normalization).
+3. Browser inference: an onnxruntime-web Web Worker that loads
+   `public/models/classifier.json`, refuses a feature-version mismatch, and adds
+   smoothing/segmentation (thresholds from the sidecar), phrases and the Test page.
 
 ## CI
 
