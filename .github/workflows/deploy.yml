@@ -2,7 +2,8 @@ name: Test and deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    # main deploys; claude/** branches only run the tests (WebKit can't run in the dev VM).
+    branches: [main, 'claude/**']
   pull_request:
   workflow_dispatch:
 
