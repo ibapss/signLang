@@ -42,7 +42,8 @@ const abs = (p: string) => new URL(assetUrl(p), location.href).href;
 export function downloadSize(kind: DetectorKind, simd = true): number {
   const w = simd ? runtime.wasm.simd : runtime.wasm.nosimd;
   const m = kind === 'holistic' ? [models.holistic] : [models.hand, models.pose];
-  return w.binary.bytes + w.loader.bytes + m.reduce((s, x) => s + (x?.bytes ?? 0), 0);
+  // The loader script (~0.3 MB) is fetched by MediaPipe itself and not counted in the progress bar.
+  return w.binary.bytes + m.reduce((s, x) => s + (x?.bytes ?? 0), 0);
 }
 
 /** Absolute URLs of the runtime files a detector of this kind needs. */
