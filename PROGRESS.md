@@ -36,14 +36,14 @@ Last updated: 2026-11-04. Branch: `claude/bold-bell-rer7wc`.
   confirmed loaded via `document.fonts.check`. Screenshots show no glyph clipping
   at line-height 2.3–2.5 (`urdu-ui.png` and `translate.png` in the Playwright
   report artifact).
-- Unit tests: 30 (Vitest). CI: `.github/workflows/deploy.yml` (see the CI run section below).
+- Unit tests: 30 (Vitest). CI run 41861467283 on this branch: unit tests, build and 14 e2e tests passed (3 skipped by design), including the **WebKit 26.6 smoke test**.
 
 ## Not verified yet
 
 - **Every real device:** Android Chrome, iOS Safari, laptop browsers, front and
   back cameras, rotation, real GPU delegates, in-app browsers, iOS permission
   flow. All of that is untested; see `docs/DEVICE_CHECKLIST.md`.
-- WebKit: only a load smoke test in CI (Playwright has no fake camera for WebKit).
+- WebKit: only a page-load smoke test, which passes in CI (Playwright has no fake camera for WebKit).
 - Firefox: not run anywhere yet.
 - The "update available" prompt: wired (`registerType: 'prompt'`) but not exercised by a test.
 - The Pages deployment itself: the workflow deploys only from `main`. Nothing is deployed yet.
