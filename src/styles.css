@@ -111,3 +111,24 @@ footer { margin-block: 20px; }
 :lang(ur) .notice, .notice:lang(ur) { font-size: 0.95rem; }
 
 [hidden] { display: none !important; }
+
+/* Collect page */
+.collect .field { display: flex; flex-direction: column; gap: 4px; margin-block: 10px; border: 0; padding: 0; }
+.collect .field input, .collect .field select {
+  font: inherit; min-height: 44px; background: var(--surface-2); color: var(--text);
+  border: 1px solid #3a4652; border-radius: 8px; padding: 6px 10px; max-width: 22rem;
+}
+.collect .check { display: flex; gap: 10px; align-items: flex-start; margin-block: 10px; }
+.collect .check input { width: 22px; height: 22px; flex: none; margin-top: 4px; }
+.collect fieldset label { display: inline-flex; gap: 6px; align-items: center; margin-inline-end: 16px; min-height: 44px; }
+.muted { color: var(--muted); }
+.prompt-card {
+  position: relative; background: var(--surface); border: 3px solid var(--surface-2); border-radius: var(--radius);
+  padding: 16px; text-align: center; margin-block: 12px;
+}
+.prompt-card.recording { border-color: #ef5350; }
+.prompt-gloss { font-size: 2rem; font-weight: 700; letter-spacing: 0.04em; }
+.prompt-en { font-size: 1.2rem; }
+.prompt-ur { font-size: 1.4rem; line-height: 2.4; }
+.prompt-card a { color: var(--accent); }
+.countdown { font-size: 3rem; font-weight: 800; min-height: 1.3em; color: #ef9a9a; }

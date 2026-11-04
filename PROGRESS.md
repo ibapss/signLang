@@ -3,16 +3,16 @@
 State, decisions and next steps, so a new session can pick up the work.
 Conventions and commands are in `CLAUDE.md`.
 
-Last updated: 2026-11-04. Branch: `claude/bold-bell-rer7wc`.
+Last updated: 2026-11-04. Milestones 1–2 merged to `main` ([PR 1](https://github.com/ibapss/signLang/pull/1)) and deployed. Working branch: `claude/bold-bell-rer7wc`.
 
 ## Milestone status
 
 | # | Milestone | Status |
 |---|---|---|
 | 1 | Inspect datasets, `docs/DATASETS.md`, first vocabulary | **Done, partly blocked:** only the PSL dictionary is reachable; Hugging Face, Mendeley and Kaggle are blocked by the network policy |
-| 2 | Camera, landmark overlay, diagnostics, Pages deployment | **Done in emulation, waiting for the real-device checklist** (`docs/DEVICE_CHECKLIST.md`) |
-| 3 | Feature spec, parity tests, training, first model, evaluation | Not started. **Blocked on training data** (needs the Hugging Face dataset at minimum) |
-| 4 | Recognition, translation, full UI, Collect and Test pages | Not started |
+| 2 | Camera, landmark overlay, diagnostics, Pages deployment | **Deployed** to https://ibapss.github.io/signLang/. First real phone tested (below). **Speed on low-end phones is the open problem.** |
+| 3 | Feature spec, parity tests, training, first model, evaluation | **Infrastructure done:** `docs/FEATURES.md` (psl-f1), Python/TS parity in CI, `training/` pipeline (tested on synthetic data only). **No model yet: no real training data** (public datasets blocked; waiting for Collect recordings) |
+| 4 | Recognition, translation, full UI, Collect and Test pages | **Collect page done early** (only unblocked data source); `src/data/signs.json` created. Recognition, translation and the Test page are not started |
 | 5 | Retrain with our recordings, tune, drop weak signs | Not started |
 | 6 | Offline polish, Spelling mode, Urdu polish, accessibility, README | Not started (offline already works for landmarks) |
 
@@ -38,15 +38,52 @@ Last updated: 2026-11-04. Branch: `claude/bold-bell-rer7wc`.
   report artifact).
 - Unit tests: 30 (Vitest). CI run 41861467283 on this branch: unit tests, build and 14 e2e tests passed (3 skipped by design), including the **WebKit 26.6 smoke test**.
 
+## Real-device results
+
+### Device 1: Android 10 phone, Chrome 156 (model not reported yet), 2026-11-04
+Diagnostics reported by the user, Holistic pipeline, front camera, 480×640 portrait:
+- The auto delegate worked as designed: GPU measured **3,015 ms/frame**, CPU
+  **363 ms/frame**, so it settled on CPU. Steady state was **305 ms/frame,
+  about 3 fps**, which is far too slow for recognition (target: 10 fps or more).
+- WASM SIMD loaded, WebGL2 present, not an in-app browser, no errors.
+- The user confirmed that hand lines appear and that the **R/L labels are
+  correct** for the anatomical hand on the front camera.
+- Pending: the same diagnostics with "Hands + Pose (lite)", the phone model, and a back-camera check.
+
+## Focus (user decision, 2026-11-04)
+
+Laptop/desktop first; phone performance later.
+
+## Milestone 3 infrastructure (2026-11-04)
+
+- `docs/FEATURES.md`: 137 features per frame, resampled by time to 32×137 over 1.6 s.
+  Hand shape is wrist-relative; hand position comes from the pose wrists (robust
+  if a dataset stores hands wrist-relative); missing hands are encoded explicitly;
+  left-handed signers are mirrored per signer.
+- Parity: `tests/golden/features-psl-f1.json` holds 8 cases from REAL landmarks
+  (browser pipeline on the fixture clip, PSL dictionary HELP) plus labelled
+  synthetic edge cases. TypeScript (Vitest) and Python (pytest) both match to
+  within 1e-5, and CI runs both.
+- `training/pipeline.py all`: prepare, train (resumable), evaluate (writes
+  `docs/EVALUATION.md`, tunes thresholds on validation), export (ONNX + sidecar,
+  checked against ONNX Runtime). Verified end to end only on SYNTHETIC
+  recordings inside `training/tests`. No real model exists yet.
+- Collect page (`#/collect`): consent, anonymous code, handedness, PSL level,
+  24 signs × N reps plus about 15% "none" prompts (rest / fidget / between),
+  3-2-1 countdown, 2.5 s takes, a hand-visibility check, and download of a
+  `psl-collect-v1` file (`training/import_collected.py`). e2e-tested with the
+  fake camera.
+- The VM uses `torch==2.14.1` from PyPI (the CUDA build, 5.5 GB venv), because
+  `download.pytorch.org` is blocked. CPU training works.
+
 ## Not verified yet
 
-- **Every real device:** Android Chrome, iOS Safari, laptop browsers, front and
-  back cameras, rotation, real GPU delegates, in-app browsers, iOS permission
-  flow. All of that is untested; see `docs/DEVICE_CHECKLIST.md`.
+- **Real devices other than device 1:** iOS Safari, laptop browsers, the back
+  camera, rotation, a fast real GPU delegate, in-app browsers, the iOS
+  permission flow. All untested; see `docs/DEVICE_CHECKLIST.md`.
 - WebKit: only a page-load smoke test, which passes in CI (Playwright has no fake camera for WebKit).
 - Firefox: not run anywhere yet.
 - The "update available" prompt: wired (`registerType: 'prompt'`) but not exercised by a test.
-- The Pages deployment itself: the workflow deploys only from `main`. Nothing is deployed yet.
 
 ## Decisions (with evidence)
 
@@ -111,19 +148,24 @@ Last updated: 2026-11-04. Branch: `claude/bold-bell-rer7wc`.
   (Hugging Face); `data.mendeley.com` (UAlpha40); `www.kaggle.com` plus an API
   token (or upload the zip). Details in `docs/DATASETS.md`.
 - **Real-device results** from `docs/DEVICE_CHECKLIST.md`.
-- **Pages setup:** Settings → Pages → Source: "GitHub Actions". Then merge the branch into `main`.
 - **License** for this repo's own code: not chosen. Tell me which you want.
 
 ## Next steps
 
-1. Merge milestone 2 and run the device checklist. Adjust the pipeline default,
-   delegate thresholds and hints from the numbers.
-2. As soon as Hugging Face is reachable, run the dataset checks listed in
-   `docs/DATASETS.md` §2, then write `docs/FEATURES.md` (match the dataset's
-   normalization if it rules out the preferred format).
-3. Milestone 3: Python/TypeScript feature parity with golden vectors, `training/`
-   pipeline (prepare/train/evaluate/export, resumable, CPU-friendly), the first
-   model, and `docs/EVALUATION.md`.
+1. **Phone speed.** Get Hands + Pose (lite) numbers from device 1. If it is
+   clearly faster, make it the default (possibly per device class). Other
+   options to measure: hands only with pose every Nth frame, and the
+   ES-module WASM build in a worker. Recognition needs about 10 fps on
+   phones like device 1.
+2. **Data.** Recordings from the Collect page on a laptop: at least 3 signers
+   (ideally Deaf PSL signers), 5+ reps per sign. Then
+   `training.import_collected` → `training.pipeline all` → the first real model.
+   If Hugging Face becomes reachable, run the checks in `docs/DATASETS.md` §2
+   and add a loader in `training/psl/sources.py` (check that `psl-f1` fits its
+   normalization).
+3. Browser inference: an onnxruntime-web Web Worker that loads
+   `public/models/classifier.json`, refuses a feature-version mismatch, and adds
+   smoothing/segmentation (thresholds from the sidecar), phrases and the Test page.
 
 ## CI
 

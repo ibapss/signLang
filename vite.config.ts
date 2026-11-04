@@ -12,8 +12,11 @@ function normalizeBase(b: string): string {
   return s;
 }
 
+const appVersion = `${process.env.npm_package_version ?? '0.0.0'}+${(process.env.GITHUB_SHA ?? 'local').slice(0, 7)}`;
+
 export default defineConfig({
   base,
+  define: { __APP_VERSION__: JSON.stringify(appVersion) },
   build: {
     target: 'es2022',
     sourcemap: true,

@@ -1,0 +1,221 @@
+{
+  "_comment": "Source of truth for signs. 'ref' is the PSL dictionary clip showing the variant to record (sign-language-translator/sign-language-datasets, CC BY 4.0). Urdu starts reviewed:false. Candidate vocabulary from docs/DATASETS.md; which signs the model actually knows comes from the model's label list.",
+  "items": [
+    {
+      "id": "help",
+      "type": "word",
+      "gloss": "HELP",
+      "en": "help",
+      "ur": "مدد",
+      "reviewed": false,
+      "ref": "pk-hfad-1_help"
+    },
+    {
+      "id": "doctor",
+      "type": "word",
+      "gloss": "DOCTOR",
+      "en": "doctor",
+      "ur": "ڈاکٹر",
+      "reviewed": false,
+      "ref": "pk-hfad-1_doctor(physician)"
+    },
+    {
+      "id": "hospital",
+      "type": "word",
+      "gloss": "HOSPITAL",
+      "en": "hospital",
+      "ur": "ہسپتال",
+      "reviewed": false,
+      "ref": "pk-hfad-1_hospital"
+    },
+    {
+      "id": "medicine",
+      "type": "word",
+      "gloss": "MEDICINE",
+      "en": "medicine",
+      "ur": "دوائی",
+      "reviewed": false,
+      "ref": "pk-hfad-1_medication"
+    },
+    {
+      "id": "pain",
+      "type": "word",
+      "gloss": "PAIN",
+      "en": "pain",
+      "ur": "درد",
+      "reviewed": false,
+      "ref": "pk-hfad-1_ache"
+    },
+    {
+      "id": "sick",
+      "type": "word",
+      "gloss": "SICK",
+      "en": "sick",
+      "ur": "بیمار",
+      "reviewed": false,
+      "ref": "pk-hfad-1_ill"
+    },
+    {
+      "id": "washroom",
+      "type": "word",
+      "gloss": "WASHROOM",
+      "en": "washroom",
+      "ur": "واش روم",
+      "reviewed": false,
+      "ref": "pk-hfad-1_washroom"
+    },
+    {
+      "id": "emergency",
+      "type": "word",
+      "gloss": "EMERGENCY",
+      "en": "emergency",
+      "ur": "ایمرجنسی",
+      "reviewed": false,
+      "ref": "pk-hfad-1_emergency"
+    },
+    {
+      "id": "me",
+      "type": "word",
+      "gloss": "ME",
+      "en": "I / me",
+      "ur": "میں",
+      "reviewed": false,
+      "ref": "pk-hfad-1_me"
+    },
+    {
+      "id": "you",
+      "type": "word",
+      "gloss": "YOU",
+      "en": "you",
+      "ur": "آپ",
+      "reviewed": false,
+      "ref": "pk-hfad-1_aap"
+    },
+    {
+      "id": "name",
+      "type": "word",
+      "gloss": "NAME",
+      "en": "name",
+      "ur": "نام",
+      "reviewed": false,
+      "ref": "pk-hfad-1_name"
+    },
+    {
+      "id": "what",
+      "type": "word",
+      "gloss": "WHAT",
+      "en": "what",
+      "ur": "کیا",
+      "reviewed": false,
+      "ref": "pk-hfad-1_what"
+    },
+    {
+      "id": "who",
+      "type": "word",
+      "gloss": "WHO",
+      "en": "who",
+      "ur": "کون",
+      "reviewed": false,
+      "ref": "pk-hfad-1_who"
+    },
+    {
+      "id": "how",
+      "type": "word",
+      "gloss": "HOW",
+      "en": "how",
+      "ur": "کیسے",
+      "reviewed": false,
+      "ref": "pk-hfad-1_kesy"
+    },
+    {
+      "id": "good",
+      "type": "word",
+      "gloss": "GOOD",
+      "en": "good",
+      "ur": "اچھا",
+      "reviewed": false,
+      "ref": "pk-hfad-1_good"
+    },
+    {
+      "id": "no",
+      "type": "word",
+      "gloss": "NO",
+      "en": "no / not",
+      "ur": "نہیں",
+      "reviewed": false,
+      "ref": "pk-hfad-1_not"
+    },
+    {
+      "id": "sorry",
+      "type": "word",
+      "gloss": "SORRY",
+      "en": "sorry",
+      "ur": "معاف کیجیے",
+      "reviewed": false,
+      "ref": "pk-hfad-1_forgive"
+    },
+    {
+      "id": "wait",
+      "type": "word",
+      "gloss": "WAIT",
+      "en": "wait",
+      "ur": "انتظار",
+      "reviewed": false,
+      "ref": "pk-hfad-1_wait"
+    },
+    {
+      "id": "again",
+      "type": "word",
+      "gloss": "AGAIN",
+      "en": "again",
+      "ur": "دوبارہ",
+      "reviewed": false,
+      "ref": "pk-hfad-1_again"
+    },
+    {
+      "id": "home",
+      "type": "word",
+      "gloss": "HOME",
+      "en": "home",
+      "ur": "گھر",
+      "reviewed": false,
+      "ref": "pk-hfad-1_house"
+    },
+    {
+      "id": "school",
+      "type": "word",
+      "gloss": "SCHOOL",
+      "en": "school",
+      "ur": "اسکول",
+      "reviewed": false,
+      "ref": "pk-hfad-1_school"
+    },
+    {
+      "id": "work",
+      "type": "word",
+      "gloss": "WORK",
+      "en": "work",
+      "ur": "کام",
+      "reviewed": false,
+      "ref": "pk-hfad-1_work"
+    },
+    {
+      "id": "today",
+      "type": "word",
+      "gloss": "TODAY",
+      "en": "today",
+      "ur": "آج",
+      "reviewed": false,
+      "ref": "pk-hfad-1_today"
+    },
+    {
+      "id": "tomorrow",
+      "type": "word",
+      "gloss": "TOMORROW",
+      "en": "tomorrow",
+      "ur": "کل",
+      "reviewed": false,
+      "ref": "pk-hfad-1_tomorrow"
+    }
+  ]
+}
