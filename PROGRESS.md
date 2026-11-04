@@ -3,14 +3,14 @@
 State, decisions and next steps, so a new session can pick up the work.
 Conventions and commands are in `CLAUDE.md`.
 
-Last updated: 2026-11-04. Branch: `claude/bold-bell-rer7wc`.
+Last updated: 2026-11-04. Milestones 1–2 merged to `main` ([PR 1](https://github.com/ibapss/signLang/pull/1)) and deployed. Working branch: `claude/bold-bell-rer7wc`.
 
 ## Milestone status
 
 | # | Milestone | Status |
 |---|---|---|
 | 1 | Inspect datasets, `docs/DATASETS.md`, first vocabulary | **Done, partly blocked:** only the PSL dictionary is reachable; Hugging Face, Mendeley and Kaggle are blocked by the network policy |
-| 2 | Camera, landmark overlay, diagnostics, Pages deployment | **Done in emulation, waiting for the real-device checklist** (`docs/DEVICE_CHECKLIST.md`) |
+| 2 | Camera, landmark overlay, diagnostics, Pages deployment | **Deployed** to https://ibapss.github.io/signLang/. First real phone tested (below). **Speed on low-end phones is the open problem.** |
 | 3 | Feature spec, parity tests, training, first model, evaluation | Not started. **Blocked on training data** (needs the Hugging Face dataset at minimum) |
 | 4 | Recognition, translation, full UI, Collect and Test pages | Not started |
 | 5 | Retrain with our recordings, tune, drop weak signs | Not started |
@@ -38,15 +38,26 @@ Last updated: 2026-11-04. Branch: `claude/bold-bell-rer7wc`.
   report artifact).
 - Unit tests: 30 (Vitest). CI run 41861467283 on this branch: unit tests, build and 14 e2e tests passed (3 skipped by design), including the **WebKit 26.6 smoke test**.
 
+## Real-device results
+
+### Device 1: Android 10 phone, Chrome 156 (model not reported yet), 2026-11-04
+Diagnostics reported by the user, Holistic pipeline, front camera, 480×640 portrait:
+- The auto delegate worked as designed: GPU measured **3,015 ms/frame**, CPU
+  **363 ms/frame**, so it settled on CPU. Steady state was **305 ms/frame,
+  about 3 fps**, which is far too slow for recognition (target: 10 fps or more).
+- WASM SIMD loaded, WebGL2 present, not an in-app browser, no errors.
+- The user confirmed that hand lines appear and that the **R/L labels are
+  correct** for the anatomical hand on the front camera.
+- Pending: the same diagnostics with "Hands + Pose (lite)", the phone model, and a back-camera check.
+
 ## Not verified yet
 
-- **Every real device:** Android Chrome, iOS Safari, laptop browsers, front and
-  back cameras, rotation, real GPU delegates, in-app browsers, iOS permission
-  flow. All of that is untested; see `docs/DEVICE_CHECKLIST.md`.
+- **Real devices other than device 1:** iOS Safari, laptop browsers, the back
+  camera, rotation, a fast real GPU delegate, in-app browsers, the iOS
+  permission flow. All untested; see `docs/DEVICE_CHECKLIST.md`.
 - WebKit: only a page-load smoke test, which passes in CI (Playwright has no fake camera for WebKit).
 - Firefox: not run anywhere yet.
 - The "update available" prompt: wired (`registerType: 'prompt'`) but not exercised by a test.
-- The Pages deployment itself: the workflow deploys only from `main`. Nothing is deployed yet.
 
 ## Decisions (with evidence)
 
@@ -111,13 +122,15 @@ Last updated: 2026-11-04. Branch: `claude/bold-bell-rer7wc`.
   (Hugging Face); `data.mendeley.com` (UAlpha40); `www.kaggle.com` plus an API
   token (or upload the zip). Details in `docs/DATASETS.md`.
 - **Real-device results** from `docs/DEVICE_CHECKLIST.md`.
-- **Pages setup:** Settings → Pages → Source: "GitHub Actions". Then merge the branch into `main`.
 - **License** for this repo's own code: not chosen. Tell me which you want.
 
 ## Next steps
 
-1. Merge milestone 2 and run the device checklist. Adjust the pipeline default,
-   delegate thresholds and hints from the numbers.
+1. **Phone speed.** Get Hands + Pose (lite) numbers from device 1. If it is
+   clearly faster, make it the default (possibly per device class). Other
+   options to measure: hands only with pose every Nth frame, and the
+   ES-module WASM build in a worker. Recognition needs about 10 fps on
+   phones like device 1.
 2. As soon as Hugging Face is reachable, run the dataset checks listed in
    `docs/DATASETS.md` §2, then write `docs/FEATURES.md` (match the dataset's
    normalization if it rules out the preferred format).
