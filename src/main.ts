@@ -66,4 +66,5 @@ if (import.meta.env.PROD) registerServiceWorker();
 (window as unknown as { __psl: unknown }).__psl = {
   diagnostics: () => translate?.diagnostics() ?? null,
   lastFrame: () => translate?.lastFrameSummary() ?? null,
+  rawFrames: () => translate?.recentRawFrames() ?? [],
 };

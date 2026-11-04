@@ -44,7 +44,18 @@ jobs:
           echo "path=$base" >> "$GITHUB_OUTPUT"
           echo "Base path: $base"
 
-      - name: Unit tests
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: training/requirements.txt
+
+      - name: Python feature tests (parity with TypeScript via golden vectors)
+        run: |
+          pip install -r training/requirements.txt
+          python -m pytest -q training/tests
+
+      - name: Unit tests (includes TypeScript side of feature parity)
         run: npm test
 
       - name: Urdu review table is up to date

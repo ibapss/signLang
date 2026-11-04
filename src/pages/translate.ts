@@ -11,6 +11,8 @@ import { markRuntimeAssetsLoaded, serviceWorkerControl } from '../pwa';
 import { saveSettings, type Settings } from '../settings';
 import { AutoDelegate } from '../delegate';
 import type { Delegate } from '../landmarks/types';
+import type { RawFrame } from '../features/features';
+import { toRawFrame } from '../features/raw';
 
 type VideoWithRVFC = HTMLVideoElement & {
   requestVideoFrameCallback?: (cb: (now: number, meta: unknown) => void) => number;
@@ -83,6 +85,8 @@ export class TranslatePage {
   private fps = new FpsMeter();
   private lmMs = new RollingMean(30);
   private last: FrameLandmarks | null = null;
+  /** Recent raw frames (docs/FEATURES.md §1), newest last; feeds the classifier window. */
+  private rawBuf: RawFrame[] = [];
   private lastPersonAt = -Infinity;
   private lastHandAt = -Infinity;
   private runningSince = 0;
@@ -334,6 +338,8 @@ export class TranslatePage {
         this.framesOnDetector++;
         this.msOnDetector += dt;
         this.last = lm;
+        this.rawBuf.push(toRawFrame(lm));
+        if (this.rawBuf.length > 300) this.rawBuf.splice(0, this.rawBuf.length - 300);
         if (lm.pose) this.lastPersonAt = now;
         if (lm.hands.length) this.lastHandAt = now;
         for (const h of lm.hands) {
@@ -450,6 +456,10 @@ export class TranslatePage {
   };
 
   /** Compact view of the latest frame, for tests and debugging. */
+  recentRawFrames(): RawFrame[] {
+    return this.rawBuf.slice();
+  }
+
   lastFrameSummary(): {
     t: number;
     hands: { side: string; source: string; mpLabel: string; wristX: number }[];
