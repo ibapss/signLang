@@ -53,7 +53,7 @@ jobs:
       - name: Python feature tests (parity with TypeScript via golden vectors)
         run: |
           pip install -r training/requirements.txt
-          python -m pytest -q training/tests
+          python -m pytest -q -c training/pytest.ini training/tests
 
       - name: Unit tests (includes TypeScript side of feature parity)
         run: npm test
