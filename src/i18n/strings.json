@@ -194,5 +194,150 @@
     "en": "Sign recognition is not in this test build yet. It tests the camera and hand tracking.",
     "ur": "اشاروں کی شناخت ابھی اس آزمائشی ورژن میں شامل نہیں۔ یہ صرف کیمرا اور ہاتھوں کی شناخت جانچتا ہے۔",
     "reviewed": false
+  },
+  "collect.title": {
+    "en": "Record signs for training",
+    "ur": "تربیت کے لیے اشارے ریکارڈ کریں",
+    "reviewed": false
+  },
+  "collect.intro": {
+    "en": "Helps the app learn Pakistan Sign Language. Only hand and body points (landmarks) are recorded. No video or pictures are stored. The file stays on this device until you choose to send it.",
+    "ur": "اس سے ایپ پاکستانی اشاروں کی زبان سیکھتی ہے۔ صرف ہاتھوں اور جسم کے نقاط ریکارڈ ہوتے ہیں۔ کوئی ویڈیو یا تصویر محفوظ نہیں ہوتی۔ فائل اسی آلے پر رہتی ہے جب تک آپ خود اسے نہ بھیجیں۔",
+    "reviewed": false
+  },
+  "collect.consent": {
+    "en": "I agree that my hand and body landmarks (not video) may be used to train and test this app. I can stop at any time.",
+    "ur": "میں اتفاق کرتا/کرتی ہوں کہ میرے ہاتھوں اور جسم کے نقاط (ویڈیو نہیں) اس ایپ کی تربیت اور جانچ کے لیے استعمال ہو سکتے ہیں۔ میں کسی بھی وقت روک سکتا/سکتی ہوں۔",
+    "reviewed": false
+  },
+  "collect.code": {
+    "en": "Signer code (not your name)",
+    "ur": "اشارہ کرنے والے کا کوڈ (اپنا نام نہیں)",
+    "reviewed": false
+  },
+  "collect.hand": {
+    "en": "Hand you sign with mainly",
+    "ur": "زیادہ تر کس ہاتھ سے اشارہ کرتے ہیں",
+    "reviewed": false
+  },
+  "collect.right": {
+    "en": "Right",
+    "ur": "دایاں",
+    "reviewed": false
+  },
+  "collect.left": {
+    "en": "Left",
+    "ur": "بایاں",
+    "reviewed": false
+  },
+  "collect.psl": {
+    "en": "Your PSL",
+    "ur": "آپ کی پی ایس ایل",
+    "reviewed": false
+  },
+  "collect.psl.deaf": {
+    "en": "Deaf, PSL is my first language",
+    "ur": "بہرا/بہری، پی ایس ایل میری پہلی زبان ہے",
+    "reviewed": false
+  },
+  "collect.psl.fluent": {
+    "en": "Fluent signer",
+    "ur": "روانی سے اشارے کرتا/کرتی ہوں",
+    "reviewed": false
+  },
+  "collect.psl.learner": {
+    "en": "Learner",
+    "ur": "سیکھ رہا/رہی ہوں",
+    "reviewed": false
+  },
+  "collect.reps": {
+    "en": "Repetitions per sign",
+    "ur": "ہر اشارے کی تکرار",
+    "reviewed": false
+  },
+  "collect.begin": {
+    "en": "Begin",
+    "ur": "شروع کریں",
+    "reviewed": false
+  },
+  "collect.needCamera": {
+    "en": "Start the camera first (button above).",
+    "ur": "پہلے اوپر والے بٹن سے کیمرا شروع کریں۔",
+    "reviewed": false
+  },
+  "collect.next": {
+    "en": "Next: {gloss}",
+    "ur": "اگلا: {gloss}",
+    "reviewed": false
+  },
+  "collect.recordBtn": {
+    "en": "Record",
+    "ur": "ریکارڈ کریں",
+    "reviewed": false
+  },
+  "collect.recording": {
+    "en": "Recording…",
+    "ur": "ریکارڈنگ ہو رہی ہے…",
+    "reviewed": false
+  },
+  "collect.redo": {
+    "en": "Redo last",
+    "ur": "پچھلا دوبارہ کریں",
+    "reviewed": false
+  },
+  "collect.skip": {
+    "en": "Skip",
+    "ur": "چھوڑ دیں",
+    "reviewed": false
+  },
+  "collect.export": {
+    "en": "Download file ({n} recordings)",
+    "ur": "فائل ڈاؤن لوڈ کریں ({n} ریکارڈنگز)",
+    "reviewed": false
+  },
+  "collect.progress": {
+    "en": "{done} of {total} done",
+    "ur": "{total} میں سے {done} مکمل",
+    "reviewed": false
+  },
+  "collect.noHands": {
+    "en": "No hands were seen in that recording. Please redo it with your hands in the frame.",
+    "ur": "اس ریکارڈنگ میں ہاتھ نظر نہیں آئے۔ ہاتھ فریم میں رکھ کر دوبارہ کریں۔",
+    "reviewed": false
+  },
+  "collect.saved": {
+    "en": "Saved. {pct}% of frames had hands.",
+    "ur": "محفوظ ہو گیا۔ {pct}% فریمز میں ہاتھ تھے۔",
+    "reviewed": false
+  },
+  "collect.done": {
+    "en": "All done, thank you! Download the file and send it to the project.",
+    "ur": "سب مکمل، شکریہ! فائل ڈاؤن لوڈ کر کے پروجیکٹ کو بھیج دیں۔",
+    "reviewed": false
+  },
+  "collect.keepTab": {
+    "en": "Keep this tab open: recordings are only kept until you download them.",
+    "ur": "یہ ٹیب کھلا رکھیں: ریکارڈنگز صرف ڈاؤن لوڈ کرنے تک محفوظ رہتی ہیں۔",
+    "reviewed": false
+  },
+  "collect.none.rest": {
+    "en": "No sign: rest your hands in your lap or by your sides",
+    "ur": "کوئی اشارہ نہیں: ہاتھ گود میں یا پہلو میں آرام سے رکھیں",
+    "reviewed": false
+  },
+  "collect.none.fidget": {
+    "en": "No sign: move naturally (scratch, adjust hair or glasses)",
+    "ur": "کوئی اشارہ نہیں: قدرتی حرکت کریں (کھجانا، بال یا عینک ٹھیک کرنا)",
+    "reviewed": false
+  },
+  "collect.none.between": {
+    "en": "No sign: raise your hands as if about to sign, then lower them",
+    "ur": "کوئی اشارہ نہیں: ہاتھ ایسے اٹھائیں جیسے اشارہ کرنے والے ہوں، پھر نیچے کر لیں",
+    "reviewed": false
+  },
+  "collect.howto": {
+    "en": "When you tap Record: 3, 2, 1, then sign once, clearly, at normal speed. Start and end with your hands down.",
+    "ur": "\"ریکارڈ کریں\" دبانے پر: 3، 2، 1، پھر ایک بار، واضح اور عام رفتار سے اشارہ کریں۔ شروع اور آخر میں ہاتھ نیچے رکھیں۔",
+    "reviewed": false
   }
 }
