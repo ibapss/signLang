@@ -1,0 +1,29 @@
+{
+  "comment": "MediaPipe .task models, pinned by version path and SHA-256. Downloaded to .cache/models/ by fetch-models.mjs and staged into public/rt/ by stage-runtime.mjs. 'precache' controls whether the service worker downloads it up front (vite.config.ts globIgnores must match).",
+  "models": [
+    {
+      "id": "hand",
+      "file": "hand_landmarker.task",
+      "url": "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+      "sha256": "fbc2a30080c3c557093b5ddfc334698132eb341044ccee322ccf8bcf3607cde1",
+      "bytes": 7819105,
+      "precache": false
+    },
+    {
+      "id": "pose",
+      "file": "pose_landmarker_lite.task",
+      "url": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task",
+      "sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+      "bytes": 5777746,
+      "precache": false
+    },
+    {
+      "id": "holistic",
+      "file": "holistic_landmarker.task",
+      "url": "https://storage.googleapis.com/mediapipe-models/holistic_landmarker/holistic_landmarker/float16/1/holistic_landmarker.task",
+      "sha256": "e2dab61191e2dcd0a15f943d8e3ed1dce13c82dfa597b9dd39f562975a50c3f8",
+      "bytes": 13683609,
+      "precache": true
+    }
+  ]
+}
