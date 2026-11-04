@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f1419" />
+    <meta name="description" content="Live Pakistan Sign Language to English and Urdu text. Runs on your device; video is never uploaded." />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icons/icon-192.png" />
+    <title>PSL Translator</title>
+  </head>
+  <body>
+    <a class="skip" href="#view">Skip to content</a>
+    <header class="top">
+      <div class="brand">
+        <h1 data-i18n="app.title">PSL Translator</h1>
+        <p class="tagline" data-i18n="app.tagline"></p>
+      </div>
+      <button class="btn lang" id="langBtn" data-i18n="lang.switch" data-i18n-aria="lang.switchLabel" lang="ur">اردو</button>
+    </header>
+    <nav aria-label="Main">
+      <a href="#/translate" data-route="translate" data-i18n="nav.translate">Translate</a>
+      <a href="#/signs" data-route="signs" data-i18n="nav.signs">Signs</a>
+      <a href="#/collect" data-route="collect" data-i18n="nav.collect">Collect</a>
+      <a href="#/test" data-route="test" data-i18n="nav.test">Test</a>
+    </nav>
+    <div id="banner" class="banner" role="status" hidden></div>
+    <main id="view" tabindex="-1"></main>
+    <footer>
+      <p class="notice" data-i18n="notice"></p>
+    </footer>
+    <noscript>This app needs JavaScript.</noscript>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
